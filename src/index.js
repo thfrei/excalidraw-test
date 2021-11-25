@@ -1,13 +1,35 @@
-/*eslint-disable */
-import "./styles.css";
-// import InitialData from "./initialData";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as Excalidraw from '@excalidraw/excalidraw/dist/excalidraw.production.min';
 
 const App = () => {
   const excalidrawRef = React.useRef(null);
+  const excalidrawWrapperRef = React.useRef(null);
+  const [dimensions, setDimensions] = React.useState({
+    width: undefined,
+    height: undefined
+  });
 
   const [viewModeEnabled, setViewModeEnabled] = React.useState(false);
   const [zenModeEnabled, setZenModeEnabled] = React.useState(false);
   const [gridModeEnabled, setGridModeEnabled] = React.useState(false);
+
+  React.useEffect(() => {
+    setDimensions({
+      width: excalidrawWrapperRef.current.getBoundingClientRect().width,
+      height: excalidrawWrapperRef.current.getBoundingClientRect().height
+    });
+    const onResize = () => {
+      setDimensions({
+        width: excalidrawWrapperRef.current.getBoundingClientRect().width,
+        height: excalidrawWrapperRef.current.getBoundingClientRect().height
+      });
+    };
+
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, [excalidrawWrapperRef]);
 
   const updateScene = () => {
     const sceneData = {
@@ -31,12 +53,12 @@ const App = () => {
           width: 186.47265625,
           height: 141.9765625,
           seed: 1968410350,
-          groupIds: [],
-        },
+          groupIds: []
+        }
       ],
       appState: {
-        viewBackgroundColor: "#edf2ff",
-      },
+        viewBackgroundColor: "#edf2ff"
+      }
     };
     excalidrawRef.current.updateScene(sceneData);
   };
@@ -51,17 +73,17 @@ const App = () => {
         "button",
         {
           className: "update-scene",
-          onClick: updateScene,
+          onClick: updateScene
         },
-        "Update Scene",
+        "Update Scene"
       ),
       React.createElement(
         "button",
         {
           className: "reset-scene",
-          onClick: () => excalidrawRef.current.resetScene(),
+          onClick: () => excalidrawRef.current.resetScene()
         },
-        "Reset Scene",
+        "Reset Scene"
       ),
       React.createElement(
         "label",
@@ -69,9 +91,9 @@ const App = () => {
         React.createElement("input", {
           type: "checkbox",
           checked: viewModeEnabled,
-          onChange: () => setViewModeEnabled(!viewModeEnabled),
+          onChange: () => setViewModeEnabled(!viewModeEnabled)
         }),
-        "View mode",
+        "View mode"
       ),
       React.createElement(
         "label",
@@ -79,9 +101,9 @@ const App = () => {
         React.createElement("input", {
           type: "checkbox",
           checked: zenModeEnabled,
-          onChange: () => setZenModeEnabled(!zenModeEnabled),
+          onChange: () => setZenModeEnabled(!zenModeEnabled)
         }),
-        "Zen mode",
+        "Zen mode"
       ),
       React.createElement(
         "label",
@@ -89,18 +111,21 @@ const App = () => {
         React.createElement("input", {
           type: "checkbox",
           checked: gridModeEnabled,
-          onChange: () => setGridModeEnabled(!gridModeEnabled),
+          onChange: () => setGridModeEnabled(!gridModeEnabled)
         }),
-        "Grid mode",
-      ),
+        "Grid mode"
+      )
     ),
     React.createElement(
       "div",
       {
         className: "excalidraw-wrapper",
-        ref: excalidrawWrapperRef,
+        ref: excalidrawWrapperRef
       },
       React.createElement(Excalidraw.default, {
+        ref: excalidrawRef,
+        width: dimensions.width,
+        height: dimensions.height,
         // initialData: InitialData,
         onChange: (elements, state) =>
           console.log("Elements :", elements, "State : ", state),
@@ -108,9 +133,9 @@ const App = () => {
         onCollabButtonClick: () => window.alert("You clicked on collab button"),
         viewModeEnabled: viewModeEnabled,
         zenModeEnabled: zenModeEnabled,
-        gridModeEnabled: gridModeEnabled,
-      }),
-    ),
+        gridModeEnabled: gridModeEnabled
+      })
+    )
   );
 };
 
