@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as Excalidraw from '@excalidraw/excalidraw/dist/excalidraw.production.min';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import * as Excalidraw from '@excalidraw/excalidraw/dist/excalidraw.production.min';
 
 const App = () => {
   const excalidrawRef = React.useRef(null);
@@ -122,7 +122,7 @@ const App = () => {
         className: "excalidraw-wrapper",
         ref: excalidrawWrapperRef
       },
-      React.createElement(Excalidraw.default, {
+      React.createElement(window.Excalidraw.default, {
         ref: excalidrawRef,
         width: dimensions.width,
         height: dimensions.height,
