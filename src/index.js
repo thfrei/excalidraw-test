@@ -122,18 +122,22 @@ const App = () => {
         className: "excalidraw-wrapper",
         ref: excalidrawWrapperRef
       },
-      React.createElement(window.Excalidraw.default, {
+      React.createElement(Excalidraw.default, {
         ref: excalidrawRef,
         width: dimensions.width,
         height: dimensions.height,
         // initialData: InitialData,
+        // onPaste: (data, event) => {
+        //   console.log("tom", data, event);
+        // },
         onChange: (elements, state) =>
-          console.log("Elements :", elements, "State : ", state),
-        onPointerUpdate: (payload) => console.log(payload),
+          console.log("onChange Elements :", elements, "State : ", state),
+        // onPointerUpdate: (payload) => console.log(payload),
         onCollabButtonClick: () => window.alert("You clicked on collab button"),
         viewModeEnabled: viewModeEnabled,
         zenModeEnabled: zenModeEnabled,
-        gridModeEnabled: gridModeEnabled
+        gridModeEnabled: gridModeEnabled,
+        isCollaborating: false,
       })
     )
   );
