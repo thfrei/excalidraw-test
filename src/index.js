@@ -13,23 +13,23 @@ const App = () => {
   const [viewModeEnabled, setViewModeEnabled] = React.useState(false);
   const [zenModeEnabled, setZenModeEnabled] = React.useState(false);
   const [gridModeEnabled, setGridModeEnabled] = React.useState(false);
-
-  React.useEffect(() => {
-    setDimensions({
-      width: excalidrawWrapperRef.current.getBoundingClientRect().width,
-      height: excalidrawWrapperRef.current.getBoundingClientRect().height
-    });
-    const onResize = () => {
-      setDimensions({
-        width: excalidrawWrapperRef.current.getBoundingClientRect().width,
-        height: excalidrawWrapperRef.current.getBoundingClientRect().height
-      });
-    };
-
-    window.addEventListener("resize", onResize);
-
-    return () => window.removeEventListener("resize", onResize);
-  }, [excalidrawWrapperRef]);
+  //
+  // React.useEffect(() => {
+  //   setDimensions({
+  //     width: excalidrawWrapperRef.current.getBoundingClientRect().width,
+  //     height: excalidrawWrapperRef.current.getBoundingClientRect().height
+  //   });
+  //   const onResize = () => {
+  //     setDimensions({
+  //       width: excalidrawWrapperRef.current.getBoundingClientRect().width,
+  //       height: excalidrawWrapperRef.current.getBoundingClientRect().height
+  //     });
+  //   };
+  //
+  //   window.addEventListener("resize", onResize);
+  //
+  //   return () => window.removeEventListener("resize", onResize);
+  // }, [excalidrawWrapperRef]);
 
   const updateScene = () => {
     const sceneData = {
@@ -127,9 +127,9 @@ const App = () => {
         width: dimensions.width,
         height: dimensions.height,
         // initialData: InitialData,
-        // onPaste: (data, event) => {
-        //   console.log("tom", data, event);
-        // },
+        onPaste: (data, event) => {
+         console.log("tom", data, event);
+        },
         onChange: (elements, state) =>
           console.log("onChange Elements :", elements, "State : ", state),
         // onPointerUpdate: (payload) => console.log(payload),
